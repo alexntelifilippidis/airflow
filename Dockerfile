@@ -1,4 +1,4 @@
-FROM apache/airflow:2.5.1-python3.10
+FROM apache/airflow:2.10.1-python3.12
 ADD requirements.txt .
 RUN pip install -r requirements.txt
 
