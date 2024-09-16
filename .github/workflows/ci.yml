@@ -24,7 +24,7 @@ jobs:
       - name: Set up Python version
         uses: actions/setup-python@v4
         with:
-          python-version-file: .python-version
+          python-version-file: 3.12
 
       - name: Install dependencies
         run: |
@@ -81,7 +81,7 @@ jobs:
       - name: Set up Python version
         uses: actions/setup-python@v4
         with:
-          python-version-file: .python-version
+          python-version-file: 3.12
 
       - name: Install dependencies
         run: |
