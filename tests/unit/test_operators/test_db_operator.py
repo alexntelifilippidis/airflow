@@ -2,8 +2,8 @@ from unittest.mock import MagicMock, patch
 
 import pendulum
 import pytest
-from airflow.models import Pool
 
+from airflow.models import Pool
 from dags.operators.db_operator import DbOperator, PgOperator
 
 context = {

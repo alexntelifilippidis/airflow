@@ -2,15 +2,16 @@ from datetime import datetime, timedelta
 from unittest.mock import MagicMock, patch
 
 import pytest
+from dagfactory.dagbuilder import DagBuilder
+from dagfactory.exceptions import DagFactoryConfigException
+from pendulum import DateTime
+from pendulum.tz.timezone import Timezone
+
 from airflow import DAG
 from airflow.models import Pool
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 from airflow.utils.task_group import TaskGroup
-from dagfactory.dagbuilder import DagBuilder
-from dagfactory.exceptions import DagFactoryConfigException
-from pendulum import DateTime
-from pendulum.tz.timezone import Timezone
 
 
 @pytest.fixture()

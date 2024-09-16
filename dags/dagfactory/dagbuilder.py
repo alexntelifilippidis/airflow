@@ -7,12 +7,13 @@ import os
 from datetime import timedelta
 from typing import Any, Callable, Dict, List, Union
 
+from dagfactory import utils
+from dagfactory.exceptions import DagFactoryConfigException, DagFactoryException
+
 from airflow import configuration
 from airflow.models import DAG, BaseOperator
 from airflow.utils.module_loading import import_string
 from airflow.utils.task_group import TaskGroup
-from dagfactory import utils
-from dagfactory.exceptions import DagFactoryConfigException, DagFactoryException
 
 SYSTEM_PARAMS: List[str] = ["operator", "dependencies", "task_group_name"]
 
@@ -168,7 +169,10 @@ class DagBuilder:
             :param task_groups_config:  Raw task group config from YAML file
         """
         tasks_and_task_groups_config: Dict[str, Dict[str, Any]] = {**tasks_config, **task_groups_config}
-        tasks_and_task_groups_instances: Dict[str, Union[BaseOperator, TaskGroup]] = {**operators_dict, **task_groups_dict}
+        tasks_and_task_groups_instances: Dict[str, Union[BaseOperator, TaskGroup]] = {
+            **operators_dict,
+            **task_groups_dict,
+        }
         for name, conf in tasks_and_task_groups_config.items():
             # if task is in a task group, group_id is prepended to its name
             if conf.get("task_group"):
@@ -184,7 +188,9 @@ class DagBuilder:
                     source.set_upstream(dep)
 
     @staticmethod
-    def make_task_groups(task_groups: Dict[str, Any], dag: DAG) -> Dict[str, TaskGroup]:  # pylint: disable=unused-argument
+    def make_task_groups(
+        task_groups: Dict[str, Any], dag: DAG
+    ) -> Dict[str, TaskGroup]:  # pylint: disable=unused-argument
         """
         Creates task groups from task group config.
         :arg task_groups: Dictionary containing task group config
@@ -222,7 +228,9 @@ class DagBuilder:
             "max_active_tasks", configuration.conf.getint("core", "max_active_tasks_per_dag")
         )
 
-        dag_kwargs["catchup"] = dag_params.get("catchup", configuration.conf.getboolean("scheduler", "catchup_by_default"))
+        dag_kwargs["catchup"] = dag_params.get(
+            "catchup", configuration.conf.getboolean("scheduler", "catchup_by_default")
+        )
 
         dag_kwargs["max_active_runs"] = dag_params.get(
             "max_active_runs",
@@ -231,9 +239,13 @@ class DagBuilder:
 
         dag_kwargs["dagrun_timeout"] = dag_params.get("dagrun_timeout", None)
 
-        dag_kwargs["default_view"] = dag_params.get("default_view", configuration.conf.get("webserver", "dag_default_view"))
+        dag_kwargs["default_view"] = dag_params.get(
+            "default_view", configuration.conf.get("webserver", "dag_default_view")
+        )
 
-        dag_kwargs["orientation"] = dag_params.get("orientation", configuration.conf.get("webserver", "dag_orientation"))
+        dag_kwargs["orientation"] = dag_params.get(
+            "orientation", configuration.conf.get("webserver", "dag_orientation")
+        )
 
         dag_kwargs["template_searchpath"] = dag_params.get("template_searchpath", None)
 

@@ -1,11 +1,36 @@
-# `black` does not work with setup.cfg
-# as seen here: https://blog.pilosus.org/posts/2019/12/26/python-third-party-tools-configuration/
+[project]
+name = "Airflow"
+version = "1.0.0"
+description = """
+                This repository contains a custom DAG Builder designed
+                to simplify the creation of Apache Airflow DAGs using YAML configuration files.
+               """
+readme = "README.md"
+authors = [
+    {name = "Alex Ntelifilippidis", email = "a.ntelifilippidis@gmail.com.com"},
+    {name = "Giorgos Papadakis", email = ""},
+]
+license = {text = "MIT"}
+dependencies = []
+constraints = "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.1/constraints-3.12.txt"
+
+[project.requires-python]
+python = ">=3.12"
 
 [tool.black]
 exclude = '(\.git|\.mypy_cache|\.venv)'
 include = '\.pyi?$'
-line-length = 132
-target-version = ['py310']
+line-length = 120
+target-version = ['py312']
+
+[tool.isort]
+profile = "black"
+line_length = 120
+skip = ".mypy_cache"
+multi_line_output = 3
+
+[tool.flake8]
+max-line-length = 120
 
 [tool.coverage.report]
 show_missing = true
@@ -18,7 +43,7 @@ omit = ["*/__init__.py",
 output = "coverage-reports/cobertura-coverage.xml"
 
 [tool.coverage.run]
-source = ["airflow_template"]
+source = ["airflow"]
 branch = true
 relative_files = true
 omit = ["*/__init__.py",
@@ -29,8 +54,13 @@ omit = ["*/__init__.py",
     ".git"
 ]
 
+[tool.pytest.ini_options]
+testpaths = [
+    "dags",
+    "tests",
+]
 
 [tool.mypy]
 ignore_missing_imports = true
 namespace_packages = true
-follow_imports = "skip" # used for https://github.com/python/mypy/issues/13627 since we cant update mypy
+install_types = true

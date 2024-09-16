@@ -4,7 +4,14 @@ from typing import Callable
 
 import pytest
 from dagfactory.exceptions import DagFactoryException
-from dagfactory.utils import check_dict_key, check_template_searchpath, get_datetime, get_time_delta, merge_configs, set_callable
+from dagfactory.utils import (
+    check_dict_key,
+    check_template_searchpath,
+    get_datetime,
+    get_time_delta,
+    merge_configs,
+    set_callable,
+)
 from pendulum.tz.timezone import Timezone
 
 # Constants
@@ -20,7 +27,12 @@ def test_merge_configs_exists_only_in_default():
     config = {
         "default": {"max_active_runs": 1},
         "montero_people_dag": {
-            "default_args": {"owner": "Airflow", "start_date": datetime(2022, 5, 3), "retries": 1, "retry_delay_sec": 300},
+            "default_args": {
+                "owner": "Airflow",
+                "start_date": datetime(2022, 5, 3),
+                "retries": 1,
+                "retry_delay_sec": 300,
+            },
             "schedule": "@once",
             "concurrency": 1,
             "dagrun_timeout_sec": 120,
@@ -92,7 +104,12 @@ def test_merge_configs_exist_arg_in_dag_conf_and_default():
     config = {
         "default": {"max_active_runs": 2},
         "montero_people_dag": {
-            "default_args": {"owner": "Airflow", "start_date": datetime(2022, 5, 3), "retries": 1, "retry_delay_sec": 300},
+            "default_args": {
+                "owner": "Airflow",
+                "start_date": datetime(2022, 5, 3),
+                "retries": 1,
+                "retry_delay_sec": 300,
+            },
             "schedule": "@once",
             "concurrency": 1,
             "max_active_runs": 1,
@@ -165,7 +182,12 @@ def test_check_dict_key():
     config = {
         "default": {"max_active_runs": 1},
         "montero_people_dag": {
-            "default_args": {"owner": "Ilias Nikas", "start_date": datetime(2022, 5, 3), "retries": 1, "retry_delay_sec": 300},
+            "default_args": {
+                "owner": "Ilias Nikas",
+                "start_date": datetime(2022, 5, 3),
+                "retries": 1,
+                "retry_delay_sec": 300,
+            },
             "schedule": "@once",
             "concurrency": 1,
             "max_active_runs": 1,
@@ -315,7 +337,10 @@ def test_check_template_searchpath_list_false_no_dir(caplog):
 
 @pytest.mark.parametrize(
     "searchpath, expected_message",
-    [(NON_ABSOLUTE_PATH, SEARCHPATH_NOT_ABSOLUTE_ERROR_MESSAGE), (INVALID_PATH, SEARCHPATH_DOES_NOT_EXIST_ERROR_MESSAGE)],
+    [
+        (NON_ABSOLUTE_PATH, SEARCHPATH_NOT_ABSOLUTE_ERROR_MESSAGE),
+        (INVALID_PATH, SEARCHPATH_DOES_NOT_EXIST_ERROR_MESSAGE),
+    ],
 )
 def test_check_template_searchpath_str_false(searchpath, expected_message, caplog):
     """Test check_template_searchpath function for a string input path that does not exist."""

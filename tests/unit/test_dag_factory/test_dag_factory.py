@@ -3,10 +3,11 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 import yaml
-from airflow import DAG
-from airflow.models import Pool
 from dagfactory.dagfactory import DagFactory, load_yaml_dags
 from dagfactory.exceptions import DagFactoryConfigException, DagFactoryException
+
+from airflow import DAG
+from airflow.models import Pool
 
 
 def test_validate_config_filepath():
@@ -183,7 +184,9 @@ def test_clean_dags(mock_get_pools: MagicMock, globals_fixture, mock_operational
 
 
 @patch("airflow.models.Pool.get_pools")
-def test_clean_dags_for_non_factory_generated_dag(mock_get_pools: MagicMock, globals_fixture, mock_operational_db_connection):
+def test_clean_dags_for_non_factory_generated_dag(
+    mock_get_pools: MagicMock, globals_fixture, mock_operational_db_connection
+):
     """Test clean_dags method when there is a DAG in globals without the is_dagfactory_auto_generated attribute"""
 
     mock_get_pools.return_value = [Pool(pool="test_pool")]

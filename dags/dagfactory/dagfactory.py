@@ -10,10 +10,11 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Union
 
 import yaml
-from airflow.configuration import conf as airflow_conf
-from airflow.models import DAG
 from dagfactory.dagbuilder import DagBuilder
 from dagfactory.exceptions import DagFactoryConfigException, DagFactoryException
+
+from airflow.configuration import conf as airflow_conf
+from airflow.models import DAG
 
 # these are params that cannot be a dag name
 SYSTEM_PARAMS: List[str] = ["default", "task_groups"]
@@ -164,7 +165,9 @@ class DagFactory:
 
 
 def load_yaml_dags(
-    globals_dict: Dict[str, Any], dags_folder: str = airflow_conf.get("core", "dags_folder"), suffix: List[str] | None = None
+    globals_dict: Dict[str, Any],
+    dags_folder: str = airflow_conf.get("core", "dags_folder"),
+    suffix: List[str] | None = None,
 ) -> None:
     """
     Load all the YAML files in the DAGs folder.

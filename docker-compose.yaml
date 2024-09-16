@@ -3,7 +3,7 @@ x-airflow-common:
   &airflow-common
   build:
     context: .
-    dockerfile: Dockerfile-test
+    dockerfile: Dockerfile
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor

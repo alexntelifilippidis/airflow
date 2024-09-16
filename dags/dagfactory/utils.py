@@ -9,8 +9,9 @@ from datetime import date, datetime, timedelta
 from typing import Any, Dict, List, Pattern, Union
 
 import pendulum
-from airflow.utils.module_loading import import_string
 from dagfactory.exceptions import DagFactoryConfigException, DagFactoryException
+
+from airflow.utils.module_loading import import_string
 
 
 def merge_configs(config: Dict[str, Any], default_config: Dict[str, Any]) -> Dict[str, Any]:
@@ -63,7 +64,7 @@ def get_datetime(date_value: Union[str, datetime, date], timezone: str = "UTC") 
         datetime object
     """
     try:
-        local_tz = pendulum.tz.timezone(timezone)
+        local_tz = pendulum.timezone(timezone)
     except Exception as err:
         logging.error("Failed to create timezone given value: %s", timezone)
         raise DagFactoryException("Failed to create timezone") from err
@@ -76,7 +77,7 @@ def get_datetime(date_value: Union[str, datetime, date], timezone: str = "UTC") 
     # Try parsing as date string
     try:
         return pendulum.parse(date_value).replace(tzinfo=local_tz)  # type: ignore
-    except pendulum.exceptions.ParserError:
+    except ValueError:
         # Parse as relative time string
         rel_delta: timedelta = get_time_delta(date_value)
         now: datetime = datetime.today().replace(tzinfo=local_tz).replace(hour=0, minute=0, second=0, microsecond=0)

@@ -1,9 +1,9 @@
 from unittest.mock import MagicMock, patch
 
-import airflow
 import pendulum
 import pytest
 
+import airflow
 from dags.operators.restart_failed_dags import restart_failed_dags
 
 context = {

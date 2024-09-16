@@ -1,7 +1,7 @@
+# Target directory
 target
 
-
-# python
+# Python
 *.pyc
 *__pycache__
 *.egg-info
@@ -15,21 +15,23 @@ tests/logs/
 coverage-reports/
 htmlcov/
 
-# python test
+# Python test
 .coverage*
 .mypy_cache
 .pytest_cache/
 .tox
 tests/resources/tmp_configs/
 
-# venvs
+# Virtual environments
 .venv/
 env/
 venv/
 .env
+Pipfile.lock
 
+# Project-specific
 dags/version.info
 
-# mutation
-mutation.sqlite
-report.html
+# Docker
+docker-compose.override.yml
+docker-compose.override.yaml

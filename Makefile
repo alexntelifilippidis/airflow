@@ -1,12 +1,20 @@
-.PHONY: install-dev start-db stop-db devserver prodserver clean check format tests
-
+.PHONY: activate-venv install-dev uninstall-dev start-db stop-db devserver prodserver clean check format tests
 ## ATTENTION! activate virtual environment before running!
 
 ##  install packages, install pre-commit
+activate-venv:
+	pipenv shell
+
 install-dev:
-	pip3 install -U pip wheel setuptools
-	pip3 install -r requirements.txt
+	pip install pipenv
+	pipenv install --dev
+	pipenv run mypy --install-types --non-interactive
 	pre-commit install
+
+## uninstall all envs
+uninstall-dev:
+	pipenv uninstall --all
+	pre-commit uninstall
 
 ## clear all caches
 clear:
@@ -21,16 +29,12 @@ clear:
 	rm -rf htmlcov
 	rm -rf tests/resources/tmp_configs
 
-## uninstall all dev packages
-uninstall-dev:
-	pip freeze | xargs pip uninstall -y
-
 ## Run linting checks
 check:
-	isort --check dags tests 	# setup.cfg
-	black --check dags tests 		# pyproject.toml
-	flake8 dags tests	 # setup.cfg
-	mypy dags tests	 --explicit-package-bases --python-version=3.10	# setup.cfg
+	isort --check dags tests
+	black --check dags tests
+	flake8 dags tests
+	mypy dags tests	 --explicit-package-bases
 
 ## reformat the files using the formatters
 format:
@@ -39,15 +43,15 @@ format:
 
 ## down build docker image
 drop-image:
-	docker compose -f docker-compose-test.yaml down -v --rmi all
+	docker compose -f docker-compose.yaml down -v --rmi all
 
 ## build docker image
 build-image:
-	docker compose -f docker-compose-test.yaml build
+	docker compose -f docker-compose.yaml build
 
 ## create environment (airflow container/operational events db/sql external db)
 integration-environment:
-	docker compose -f docker-compose-test.yaml up -d --wait
+	docker compose -f docker-compose.yaml up -d --wait
 
 	echo "Initializing pg database"
 	python ci_scripts/setup_pg_database.py
@@ -55,7 +59,7 @@ integration-environment:
 ## tear down environment
 integration-teardown:
 	echo "Tearing down environment"
-	docker-compose -f docker-compose-test.yaml down -v
+	docker-compose -f docker-compose.yaml down -v
 
 	echo "Clearing caches"
 	make clear

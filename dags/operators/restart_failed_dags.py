@@ -1,8 +1,9 @@
 import logging
 
+from operators.exceptions import OperatorException
+
 from airflow.api.common import trigger_dag
 from airflow.models import DagRun
-from operators.exceptions import OperatorException
 
 
 def restart_failed_dags(**context):

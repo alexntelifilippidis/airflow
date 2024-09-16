@@ -9,6 +9,7 @@ and destinations, and they contain useful methods to interact with them.
 from typing import List
 
 import sqlalchemy
+
 from airflow.hooks.base import BaseHook
 
 

@@ -56,7 +56,7 @@
 ### Setup operational event database
 
 Change the environment variable OPERATIONAL_DB_URL to point to the proper PostgreSQL database. By default points to the one
-used for integration testing, in [docker-compose-test.yaml](docker-compose-test.yaml) as 
+used for integration testing, in [docker-compose-test.yaml](docker-compose.yaml) as 
 
 ```text
 postgresql://postgres:example@localhost:5432/postgres
@@ -117,7 +117,7 @@ The integration tests need a running environment consisting of:
 - An operational events postgres database    
 - A S3 bucket emulated by [a docker image of localstack](https://docs.localstack.cloud/references/docker-images/)
 
-The test dag is triggered, assertions run and setup is cleaned up. These test roles are already present in [docker-compose-test.yaml](docker-compose-test.yaml)
+The test dag is triggered, assertions run and setup is cleaned up. These test roles are already present in [docker-compose-test.yaml](docker-compose.yaml)
 More information can be found here: https://newcross.atlassian.net/wiki/spaces/DET/pages/3871113257/Integration+Testing
 
 
@@ -142,7 +142,7 @@ You can find
 - the airflow ui on localhost:8080, username and password are both `airflow`.
 - the postgres database on localhost:5432, username is `postgres` and password `example`
 
-(if you need things to be stateful, uncomment postgres and mssql volumes on the [docker-compose-test.yaml](docker-compose-test.yaml) file)
+(if you need things to be stateful, uncomment postgres and mssql volumes on the [docker-compose-test.yaml](docker-compose.yaml) file)
 
 ### Run the dag
 

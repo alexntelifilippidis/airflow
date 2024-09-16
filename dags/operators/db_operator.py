@@ -4,9 +4,10 @@ Holds operators whose main function is to move data from a database to S3.
 
 import logging
 
-from airflow.models import BaseOperator, Pool
 from models import data_model
 from operators.exceptions import OperatorException
+
+from airflow.models import BaseOperator, Pool
 
 
 class DbOperator(BaseOperator):
@@ -188,7 +189,8 @@ class PgOperator(DbOperator):
             query = query.replace(";", " ")
             # If chunk size is not None, we want to read data in chunks
             query = query + (
-                f"ORDER BY {self.table_prefix}{self.table_name}.{self.column_pk} LIMIT {{chunk_size}} " f"OFFSET {{offset}}"
+                f"ORDER BY {self.table_prefix}{self.table_name}.{self.column_pk} LIMIT {{chunk_size}} "
+                f"OFFSET {{offset}}"
             )
         return query
 

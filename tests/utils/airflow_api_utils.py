@@ -21,6 +21,7 @@ class AirflowApiUtils:
     """
     This class is used to interact with Airflow API.
     """
+
     def __init__(self):
         self.configuration = airflow_client.client.Configuration(
             host=config["AIRFLOW_API_URL"], username=config["AIRFLOW_USERNAME"], password=config["AIRFLOW_PASSWORD"]
@@ -137,7 +138,9 @@ class AirflowApiUtils:
         dag_run_logs = []
 
         for index, dag_run_id in enumerate(dag_run_ids):
-            log = self.task_api_instance.get_log(dag_id=dag_id, dag_run_id=dag_run_id, task_id=task_id, task_try_number=index + 1)
+            log = self.task_api_instance.get_log(
+                dag_id=dag_id, dag_run_id=dag_run_id, task_id=task_id, task_try_number=index + 1
+            )
             dag_run_logs.append(log.content)
 
         return dag_run_logs

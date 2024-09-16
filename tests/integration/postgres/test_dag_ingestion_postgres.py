@@ -4,7 +4,9 @@ def test_ingestion_happens_successfully_pg_server(setup_and_teardown_fixture, ai
     expected_list = [(1, "1968-10-23", "buy 1"), (2, "1968-10-24", "buy 2")]
 
     airflow_api_utils_fixture.run_dag(dag_under_test_id)
-    logs = airflow_api_utils_fixture.get_dag_run_logs(dag_id=dag_under_test_id, task_id="successful_ingestion_test_pg_dag_task")
+    logs = airflow_api_utils_fixture.get_dag_run_logs(
+        dag_id=dag_under_test_id, task_id="successful_ingestion_test_pg_dag_task"
+    )
 
     assert f"Data read successfully : {expected_list}" in logs[0]
 
