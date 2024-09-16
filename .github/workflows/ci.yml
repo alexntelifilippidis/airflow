@@ -30,8 +30,8 @@ jobs:
         run: |
           # install dependencies
           python -m pip install --upgrade pip
-          pip install -U pip wheel setuptools
-          pip install -r requirements.txt
+          pip install pipenv
+          pipenv install --dev
 
       - name: Check
         id: check
@@ -87,8 +87,8 @@ jobs:
         run: |
           # install dependencies
           python -m pip install --upgrade pip
-          pip install -U pip wheel setuptools
-          pip install -r requirements.txt
+          pip install pipenv
+          pipenv install --dev
 
       - name: Prepare Airflow Docker Container
         id: airflow-docker-container
