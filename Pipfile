@@ -20,6 +20,8 @@ flake8 = "==7.1.1"
 Flake8-pyproject = "*"
 pytest = "==8.3.2"
 pytest-cov = "==5.0.0"
+apache-airflow-client = "==2.10.0"
+python-dotenv = "==1.0.1"
 
 [pipenv.options]
 constraints = "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.1/constraints-3.12.txt"

@@ -1,0 +1,85 @@
+changelog:
+  # Exclude specific labels and authors from appearing in the changelog
+  exclude:
+    labels:
+      - ignore-for-release  # Any PR or issue labeled with this won't appear in the changelog
+    authors:
+      - octocat  # Contributions by this user won't appear in the changelog
+
+  # Organize changes into categories based on labels
+  categories:
+    - title: 🚨 Breaking Changes
+      labels:
+        - Semver-Major
+        - breaking-change
+
+    - title: ✨ New Features
+      labels:
+        - Semver-Minor
+        - enhancement
+
+    - title: 🛠 Bug Fixes
+      labels:
+        - bug
+        - fix
+
+    - title: 📈 Performance Improvements
+      labels:
+        - performance
+
+    - title: 🧹 Maintenance & Refactoring
+      labels:
+        - refactor
+        - cleanup
+        - maintenance
+
+    - title: 📖 Documentation Updates
+      labels:
+        - documentation
+        - docs
+
+    - title: ✅ Testing Updates
+      labels:
+        - tests
+        - ci
+
+
+# Define how the release title will be formatted
+template:
+  name: 'v$NEXT_PATCH_VERSION'  # Automatically increment patch version
+  tag: 'v$NEXT_PATCH_VERSION'
+  draft: false  # Automatically publish the release (set to true if you want to manually publish)
+  prerelease: false
+
+# Format the body of the release
+body:
+  - '## 🚨 Breaking Changes:'
+  - $CHANGES(Breaking Changes 🛠️)
+
+  - '## ✨ New Features:'
+  - $CHANGES(Exciting New Features 🎉)
+
+  - '## 🛠 Bug Fixes:'
+  - $CHANGES(Bug Fixes)
+
+  - '## 📈 Performance Improvements:'
+  - $CHANGES(Performance Improvements)
+
+  - '## 🧹 Maintenance & Refactoring:'
+  - $CHANGES(Maintenance & Refactoring)
+
+  - '## 📖 Documentation Updates:'
+  - $CHANGES(Documentation Updates)
+
+  - '## ✅ Testing Updates:'
+  - $CHANGES(Testing Updates)
+
+
+# Sort the changes by their merge date (latest at the top)
+sort-by: 'merged_at'
+
+# Collapse empty categories in the generated changelog
+collapse-when-empty: true
+
+# Automatically include all pull requests in the changelog if no category is defined
+include-all: true
