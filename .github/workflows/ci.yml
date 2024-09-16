@@ -36,6 +36,7 @@ jobs:
       - name: Check
         id: check
         run: |
+          pipenv shell
           make check
 
       - name: Unit Test with pytest
