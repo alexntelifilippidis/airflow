@@ -33,7 +33,6 @@ jobs:
           pip install pipenv
           pipenv requirements > requirements.txt --dev
           pip install -r requirements.txt
-          mypy --install-types
 
       - name: Check
         id: check
@@ -92,7 +91,6 @@ jobs:
           pip install pipenv
           pipenv requirements > requirements.txt --dev
           pip install -r requirements.txt
-          mypy --install-types
 
       - name: Prepare Airflow Docker Container
         id: airflow-docker-container

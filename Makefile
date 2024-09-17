@@ -34,7 +34,7 @@ check:
 	isort --check dags tests
 	black --check dags tests
 	flake8 dags tests
-	mypy dags tests	 --explicit-package-bases
+	mypy dags tests	 --explicit-package-bases --install-types --non-interactive
 
 ## reformat the files using the formatters
 format:
