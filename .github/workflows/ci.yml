@@ -110,6 +110,7 @@ jobs:
 
       - name: Run update_changelog.sh
         run: |
+          gh --version
           # Fetch the latest release information in JSON format
           release_info=$(gh release view --json tagName,publishedAt,body)
           
