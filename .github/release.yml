@@ -42,3 +42,7 @@ changelog:
       labels:
         - tests
         - ci
+
+    - title: 🏷 Other
+      labels:
+        - *
