@@ -108,48 +108,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install jq gh
 
-      - name: Remove old GitHub CLI version (if exists)
-        run: |
-          sudo apt-get remove gh || true
-
-      - name: Install Specific Version of GitHub CLI
-        run: |
-          # Set the specific version you want to install (e.g., 2.55.0)
-          GH_VERSION="2.55.0"
-          # Download the tarball for the specific version
-          curl -L "https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.tar.gz" -o gh.tar.gz
-          # Extract the tarball
-          tar -xzf gh.tar.gz
-          # Move the binary to a directory in the system PATH
-          sudo mv gh_${GH_VERSION}_linux_amd64/bin/gh /usr/local/bin/gh
-          # Verify installation
-          gh --version
-
       - name: Run update_changelog.sh
         run: |
-          gh --version
-          # Fetch the latest release information in JSON format
-          release_info=$(gh release view --json tagName,publishedAt,body)
-          
-          # Extract the tag, published date, and body using jq
-          tag=$(echo "$release_info" | jq -r '.tagName')
-          published=$(echo "$release_info" | jq -r '.publishedAt')
-          body=$(echo "$release_info" | jq -r '.body')
-          
-          # Format the release information
-          formatted_release_info=$(cat <<EOF
-          ## Tag: $tag
-          **Published**: $published
-          $body
-          EOF
-          )
-          
-          # Append the formatted release information to CHANGELOG.md
-          echo "$formatted_release_info" >> CHANGELOG.md
-          
-          # Append a line of dashes to CHANGELOG.md
-          echo """
-          ---
-          """ >> CHANGELOG.md
+          gh -h
+          bash ci_scripts/update_changelog.sh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
