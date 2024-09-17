@@ -31,7 +31,7 @@ jobs:
           # install dependencies
           python -m pip install --upgrade pip
           pip install pipenv
-          pipenv requirements > requirements.txt --dev --skip-lock
+          pipenv requirements > requirements.txt --dev --from-pipfile 
           pip install -r requirements.txt
 
       - name: Check
@@ -90,7 +90,7 @@ jobs:
           # install dependencies
           python -m pip install --upgrade pip
           pip install pipenv
-          pipenv requirements > requirements.txt --dev --skip-lock
+          pipenv requirements > requirements.txt --dev --from-pipfile 
           pip install -r requirements.txt
 
       - name: Prepare Airflow Docker Container
