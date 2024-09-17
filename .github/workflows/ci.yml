@@ -110,6 +110,7 @@ jobs:
 
       - name: Run update_changelog.sh
         run: |
+          sudo apt-get remove gh || true
           sudo apt-get install -y gh
           gh --version
           # Fetch the latest release information in JSON format
