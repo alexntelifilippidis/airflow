@@ -44,32 +44,11 @@ jobs:
         run: |
           pytest -v -s tests/unit --no-header -vv --cov=dags --cov-report=xml --cov-report=term-missing
 
-      - name: Prepare Airflow Docker Container
-        id: airflow-docker-container
-        run: |
-          bash ci_scripts/prepare_airflow_docker_container.sh
-
-      - name: Prepare Integration Tests Environment
-        id: setup-environment
-        run: |
-          export OPERATIONAL_DB_URL="postgresql://postgres:example@localhost:5432/postgres"
-          
-          echo "Initializing pg database"
-          python ci_scripts/setup_pg_database.py
-
       - name: Integration Test with pytest
         id: integration-tests
         run: |  
           echo "Running integration tests"
 
-      - name: Cleanup Integration Tests Environment
-        id: cleanup-environment
-        run: |
-          echo "Docker compose down"
-          docker-compose -f docker-compose.yaml down -v
-          
-          echo "Clearing caches"
-          make clear
 
   # Integrity Tests job.
   integrity-tests:
