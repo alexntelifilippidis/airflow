@@ -108,15 +108,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install jq gh
 
-      - name: Install GitHub CLI
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y gh
-
-      - name: Authenticate GitHub CLI
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
-
       - name: Run update_changelog.sh
         run: |
           bash ci_scripts/update_changelog.sh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
