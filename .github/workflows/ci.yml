@@ -92,7 +92,7 @@ jobs:
   update-changelog:
     name: Update Changelog
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
+#    if: startsWith(github.ref, 'refs/tags/')
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -107,6 +107,15 @@ jobs:
           # install dependencies
           python -m pip install --upgrade pip
           pip install jq gh
+
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gh
+
+      - name: Authenticate GitHub CLI
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
       - name: Run update_changelog.sh
         run: |
