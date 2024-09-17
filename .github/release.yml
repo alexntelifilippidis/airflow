@@ -1,0 +1,44 @@
+changelog:
+  # Exclude specific labels and authors from appearing in the changelog
+  exclude:
+    labels:
+      - ignore-for-release  # Any PR or issue labeled with this won't appear in the changelog
+    authors:
+      - octocat  # Contributions by this user won't appear in the changelog
+
+  # Organize changes into categories based on labels
+  categories:
+    - title: 🚨 Breaking Changes
+      labels:
+        - Semver-Major
+        - breaking-change
+
+    - title: ✨ New Features
+      labels:
+        - Semver-Minor
+        - enhancement
+
+    - title: 🛠 Bug Fixes
+      labels:
+        - bug
+        - fix
+
+    - title: 📈 Performance Improvements
+      labels:
+        - performance
+
+    - title: 🧹 Maintenance & Refactoring
+      labels:
+        - refactor
+        - cleanup
+        - maintenance
+
+    - title: 📖 Documentation Updates
+      labels:
+        - documentation
+        - docs
+
+    - title: ✅ Testing Updates
+      labels:
+        - tests
+        - ci

@@ -27,7 +27,6 @@ tests/resources/tmp_configs/
 env/
 venv/
 .env
-Pipfile.lock
 
 # Project-specific
 dags/version.info

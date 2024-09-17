@@ -56,8 +56,10 @@ omit = ["*/__init__.py",
 
 [tool.pytest.ini_options]
 testpaths = [
-    "dags",
     "tests",
+]
+pythonpath = [
+    "dags"
 ]
 
 [tool.mypy]

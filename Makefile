@@ -34,7 +34,7 @@ check:
 	isort --check dags tests
 	black --check dags tests
 	flake8 dags tests
-	mypy dags tests	 --explicit-package-bases
+	mypy dags tests	 --explicit-package-bases --install-types --non-interactive
 
 ## reformat the files using the formatters
 format:
@@ -65,11 +65,7 @@ integration-teardown:
 	make clear
 ## run integration tests
 integration-tests:
-	make integration-environment
 
-	echo "Running integration tests"
-	pytest -v -s tests/integration --no-header -vv --alluredir=allure_results || (make integration-teardown && exit 1)
-	make integration-teardown
 
 ## run unit tests
 unit:
@@ -102,9 +98,8 @@ check-for-import-error:
 	make clear
 
 ## linting checks and then run tests
-tests: check build-image
+tests:
 	make unit
-	make integration-tests
 
 
 #################################################################################

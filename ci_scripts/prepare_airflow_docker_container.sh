@@ -4,7 +4,7 @@ echo -e "AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0" > .env
 
 echo "Starting airflow container"
 
-docker compose -f docker-compose-test.yaml up -d --wait
+docker compose -f docker-compose.yaml up -d --wait
 
 echo "Waiting for airflow container to be ready"
 
