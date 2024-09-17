@@ -1,7 +1,8 @@
 FROM apache/airflow:2.10.1-python3.12
-ADD Pipfile .
+ADD Pipfile.lock .
 RUN pip install pipenv
-RUN pipenv install
+RUN pipenv requirements > requirements.txt
+RUN pip install -r requirements.txt
 
 #odbc
 

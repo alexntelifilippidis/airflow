@@ -31,7 +31,8 @@ jobs:
           # install dependencies
           python -m pip install --upgrade pip
           pip install pipenv
-          pipenv install --dev --skip-lock
+          pipenv requirements > requirements.txt --dev
+          pip install -r requirements.txt
 
       - name: Check
         id: check
@@ -89,7 +90,8 @@ jobs:
           # install dependencies
           python -m pip install --upgrade pip
           pip install pipenv
-          pipenv install --dev --skip-lock
+          pipenv requirements > requirements.txt --dev
+          pip install -r requirements.txt
 
       - name: Prepare Airflow Docker Container
         id: airflow-docker-container
