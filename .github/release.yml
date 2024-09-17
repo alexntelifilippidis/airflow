@@ -45,4 +45,4 @@ changelog:
 
     - title: 🏷 Other
       labels:
-        - *
+        - "*"
