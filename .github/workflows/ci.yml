@@ -108,9 +108,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install jq gh
 
+      - name: Install Specific Version of GitHub CLI
+        run: |
+          sudo apt-get remove gh || true
+          gh --version
+
       - name: Run update_changelog.sh
         run: |
-          gh -h
+          gh --version
           bash ci_scripts/update_changelog.sh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
